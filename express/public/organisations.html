@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>Organisation Page</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/master.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/organisations.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+        <script defer src="javascripts/organisations.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    </head>
+<body>
+    <div class="menu v-cloak" id="menu">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <a href="home.html">Home</a>
+        <a href="organisation-list.html">Organisations</a>
+        <a href="contact.html">Contact</a>
+        <a v-if="isAdmin" href="admin.html">Admin</a>
+        <a v-if="!isLoggedIn" href="login.html" class="login">Login</a>
+        <a v-if="isLoggedIn" href="account.html" class="login">Account</a>
+    </div>
+    <script src="javascripts/menu.js"></script>
+    <div class="ribbon"></div>
+    <div class="content" id="app" v-cloak v-if="!is_loading">
+        <h1 class="organisation-name">{{ organisation.name }}</h1>
+        <h2 class="organisation-address">{{ organisation.address_line }}, {{ organisation.suburb }} {{ organisation.state }}</h2>
+        <!-- <button type="button" class="joined-button">JOINED</button> -->
+        <button type="button" class="join-button" @click="join" v-if="(!user_member && !user_manager)">JOIN</button>
+        <button type="button" class="joined-button" @click="leave" v-if="(user_member && !user_manager)">LEAVE</button>
+        <p class="description">{{ organisation.statement }}</p>
+        <div id="infoSelector">
+            <button type="button" class="activeButton" onclick="selectTab(this)">ANNOUNCEMENTS</button>
+            <button type="button" class="passiveButton" onclick="selectTab(this)">UPCOMING EVENTS</button>
+            <button type="button" class="passiveButton" onclick="selectTab(this)">MEMBERS</button>
+        </div>
+
+        <!-- show this div if the first button is active -->
+        <div id="Announcements">
+            <div class="button-container" v-if="user_manager || user_admin">
+                <button type="button" class="admin-button" id="add-announcement" @click="addPost">+</button>
+            </div>
+            <!-- Organisation divs. Five are shown by default. Can be changed by using admin buttons -->
+            <div class="list_container" v-for="(post, index) in posts">
+                <div v-if="(!post.is_private) || user_member">
+                    <div class="keyInfo">
+                        <p class="title">{{ post.title }}</p>
+                        <p class="tag private" v-if="post.is_private">Private</p>
+                        <p class="tag public" v-else>Public</p>
+                        <p class="date">{{ formatDate(post.created_on) }}</p>
+                    </div>
+                    <p class="author">Created by {{ post.first_name }} {{ post.last_name }}</p>
+                    <p class="list_container_content">{{ post.content }}</p>
+                    <div class="keyInfo buttons">
+                        <div class="manager-buttons" v-if="user_manager || user_admin">
+                            <button type="button" class="delete-button" @click.stop="deletePost(post.id, index)"><i class="fas fa-trash"></i></button>
+                            <button type="button" class="edit-button" @click.stop="editPost(post.id)"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- show this div if the second button is active -->
+        <div id="Events" style="display: none">
+            <div class="button-container" v-if="user_manager || user_admin">
+                <button type="button" class="admin-button" id="add-event" @click="addEvent">+</button>
+            </div>
+            <div class="list_container" v-for="(event, index) in events">
+                <div v-if="event.public || user_member">
+                    <div class="keyInfo">
+                        <div class="keyInfo">
+                            <p class="date">{{ formatTimeDateString(event.datetime) }}</p>
+                            <p class="tag private" v-if="!event.public">Private</p>
+                            <p class="tag public" v-else>Public</p>
+                        </div>
+                        <p @click="getAttendees(event.event_id)" v-if="user_manager || user_admin" class="attendees attendees-admin">{{ event.num_attendees }}<span>&#128101;</span></p>
+                        <p v-if="!user_manager && !user_admin" class="attendees">{{ event.num_attendees }}<span>&#128101;</span></p>
+                        <!-- MODAL -->
+                        <div v-if="openModal" @click="openModal = false" class="modal">
+                            <div class="modal-content" @click.stop>
+                                <h3>Attendees</h3>
+                                    <div v-for="(attendee, index) in attendees">
+                                    <p class="modal-text">{{ attendee.first_name }} {{ attendee.last_name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END MODAL -->
+                    </div>
+                    <p class="title">{{ event.title }}</p>
+                    <p class="subtitle">{{ event.subtitle }}</p>
+                    <p class="list_container_content"> {{ event.content }} </p>
+                    <div class="keyInfo">
+                        <p class="location">{{ event.address_line }}, {{ event.suburb }}, {{ event.postcode }}, {{ event.state }}</p>
+                        <div class="buttons">
+                            <div class="manager-buttons" v-if="user_manager || user_admin">
+                                <button type="button" class="delete-button" @click.stop="deleteEvent(event.event_id, index)"><i class="fas fa-trash"></i></button>
+                                <button type="button" class="edit-button" @click.stop="editEvent(event.event_id)"><i class="fas fa-edit"></i></button>
+                            </div>
+                                <button type="button" class="join-button" @click.stop="eventJoinLeave(event.event_id, index)" v-if="!event.is_attending">I'M GOING</button>
+                                <button type="button" class="join-button" @click.stop="eventJoinLeave(event.event_id, index)" v-if="event.is_attending">GOING ✓</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="Members" style="display: none">
+            <div class="members_list_page" v-for="(member, index) in members">
+                <!-- Making a delete button outside list container -->
+                <div class="list_container">
+                    <div class="details">
+                        <p class="name">{{ member.first_name }} {{ member.last_name }}</p>
+                        <div class="managerDiv">
+                            <input type="checkbox" class="makeManager" v-if="(user_manager || user_admin) && (member.user_id != user_info.user_id)" @click="makeManager(member.user_id, member.is_manager, member.is_admin)" v-model="member.is_manager">
+                            <p class="manager" v-if="member.is_manager">Organisation Manager</p>
+                            <p class="manager" v-if="!member.is_manager && (member.user_id != user_info.user_id) && (user_manager || user_admin)">Promote to manager</p>
+                            <button type="button" class="delete_button remove-member" v-if="(user_manager || user_admin) && (member.user_id != user_info.user_id)" @click="deleteMember(member.user_id)">Remove from organisation</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p class="footer-text">&copy; 2024 Hugh Mongus Hearts</p>
+    </div>
+</body>
+</html>

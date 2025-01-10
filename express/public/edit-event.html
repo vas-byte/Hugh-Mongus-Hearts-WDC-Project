@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheets/master.css">
+    <link rel="stylesheet" href="stylesheets/new-organisation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <title>New Announcement</title>
+</head>
+<body>
+    <div class="menu" id="menu">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <a href="home.html">Home</a>
+        <a href="organisation-list.html">Organisations</a>
+        <a href="contact.html">Contact</a>
+        <a v-if="isAdmin" href="admin.html">Admin</a>
+        <a v-if="isLoggedIn" href="account.html" class="login">Account</a>
+    </div>
+    <div class="ribbon"></div>
+    <div class="content" id="app">
+        <h1>Post Event</h1>
+        <form>
+            <div class="organisation-details">
+                <div class="organisation-detail">
+                    <label for="event-title">Title</label>
+                    <input type="text" id="event-title" name="event-title" v-model="event.title">
+                </div>
+                <div class="organisation-detail">
+                    <label for="event-subtitle">Subtitle</label>
+                    <input type="text" id="event-subtitle" name="event-subtitle" v-model="event.subtitle">
+                </div>
+                <div class="organisation-detail">
+                    <label for="event-datetime">Date</label>
+                    <input type="datetime-local" id="event-datetime" name="event-datetime" v-model="event.datetime">
+                </div>
+                <div class="organisation-detail">
+                    <label for="event-address">Event Address</label>
+                    <input type="text" id="event-address" name="event-address" v-model="event.address_line">
+                </div>
+                <div class="organisation-detail">
+                    <label for="event-suburb">Suburb</label>
+                    <input type="text" id="event-suburb" name="event-suburb" v-model="event.suburb">
+                </div>
+                <div class="organisation-detail">
+                    <label for="event-state">State</label>
+                    <input type="text" id="event-state" name="event-state" v-model="event.state">
+                </div>
+                <div class="organisation-detail">
+                    <label for="event-postcode">Postcode</label>
+                    <input type="text" id="event-postcode" name="event-postcode" v-model="event.postcode">
+                </div>
+                <div class="organisation-detail">
+                    <label for="event-public">Public</label>
+                    <input type="checkbox" id="event-public" name="event-public" v-model="event.public" true-value="1" false-value="0">
+                </div>
+                <div class="organisation-detail">
+                    <label for="event-content">Description</label>
+                    <textarea id="event-content" name="event-content" rows="7" v-model="event.content"></textarea>
+                </div>
+
+            </div>
+            <div class="button-container">
+                <button type="button" class="cancel-button" @click="cancelRedirect">CANCEL</button>
+                <button type="button" class="add-button" @click="editEvent">CONFIRM</button>
+            </div>
+        </form>
+    </div>
+    <script src="javascripts/edit-events.js"></script>
+</body>
+</html>

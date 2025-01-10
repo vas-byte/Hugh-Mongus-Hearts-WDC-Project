@@ -1,0 +1,72 @@
+<!-- Create an html page to add a new organisation to the organisation
+each organisation has a name, a street address, a suburb, a state, a
+postcode and a manager.
+
+This is the page admin will have after then have selected '+' on the
+organisations page. Have each category listed above with a text input on
+the right.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheets/master.css">
+    <link rel="stylesheet" href="stylesheets/new-organisation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    <title>New Organisation</title>
+</head>
+<body>
+    <div class="menu" id="menu">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <a href="home.html">Home</a>
+        <a href="organisation-list.html">Organisations</a>
+        <a href="contact.html">Contact</a>
+        <a v-if="isAdmin" href="admin.html">Admin</a>
+        <a v-if="!isLoggedIn" href="login.html" class="login">Login</a>
+        <a v-if="isLoggedIn" href="account.html" class="login">Account</a>
+    </div>
+    <script src="javascripts/menu.js"></script>
+    <div class="ribbon"></div>
+    <div class="content" id="app">
+        <h1>EDIT ORGANISATION</h1>
+        <form>
+            <div class="organisation-details">
+                <div class="organisation-detail">
+                    <label for="organisation-name">Organisation Name</label>
+                    <input type="text" id="organisation-name" name="organisation-name" v-model="organisation.name">
+                </div>
+                <div class="organisation-detail">
+                    <label for="organisation-address">Organisation Address</label>
+                    <input type="text" id="organisation-address" name="organisation-address" v-model="organisation.address_line">
+                </div>
+                <div class="organisation-detail">
+                    <label for="organisation-suburb">Suburb</label>
+                    <input type="text" id="organisation-suburb" name="organisation-suburb" v-model="organisation.suburb">
+                </div>
+                <div class="organisation-detail">
+                    <label for="organisation-state">State</label>
+                    <input type="text" id="organisation-state" name="organisation-state" v-model="organisation.state">
+                </div>
+                <div class="organisation-detail">
+                    <label for="organisation-postcode">Postcode</label>
+                    <input type="text" id="organisation-postcode" name="organisation-postcode" v-model="organisation.postcode">
+                </div>
+                <div class="organisation-detail">
+                    <label for="organisation-statement">Statement</label>
+                    <textarea id="organisation-statement" name="organisation-statement" rows="7" v-model="organisation.statement"></textarea>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" class="cancel-button" onclick="window.location.href='organisation-list.html'">CANCEL</button>
+                <button type="button" class="add-button" @click="editOrganisation">CONFIRM</button>
+            </div>
+        </form>
+    </div>
+    <script src="javascripts/edit-organisation.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/master.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/admin.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/dialog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+</head>
+<body>
+    <div class="menu" id="menu">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <a href="home.html">Home</a>
+        <a href="organisation-list.html">Organisations</a>
+        <a href="contact.html">Contact</a>
+        <a v-if="isAdmin" href="admin.html">Admin</a>
+        <a v-if="!isLoggedIn" href="login.html" class="login">Login</a>
+        <a v-if="isLoggedIn" href="account.html" class="login">Account</a>
+    </div>
+    <script src="javascripts/menu.js"></script>
+    <div class="ribbon"></div>
+    <div class="content" id="admin">
+
+        <div v-if="!accessDenied">
+            <h1>Admin</h1>
+
+            <div id="saveBanner">
+                <p v-if="bannerSuccess" class="success">{{bannerSuccess}}</p>
+                <p v-if="bannerFail" class="error">{{bannerFail}}</p>
+            </div>
+
+            <button type="button" class="edit-button" @click="addUser">Add User</button>
+
+            <div class="find-users">
+                <h3>Find A Person</h3>
+                <div class="search">
+                    <input v-model="search" type="text" placeholder="Search">
+                </div>
+            </div>
+            <div class="user-list">
+                <ul id="userList">
+                    <li class="user" v-for="(user, index) in filteredPeople" >
+                        <p class="name">{{user.first_name}} {{user.last_name}}</p>
+                        <div class="admin-controls">
+                            <p v-if="user.is_admin" class="admin-label"> Admin </p>
+                            <button type="button" class="edit-button" @click="handleEditClicks(user)">EDIT</button>
+                            <button type="button" class="remove-button" @click="handleDeleteClicks(user)">REMOVE</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div v-if="accessDenied">
+            <div class="padlock">🔒</div>
+            <div class="message">Access Denied</div>
+            <div class="sub-message">You must be a site administrator to view this page.</div>
+        </div>
+
+        <template>
+            <div v-if="visible" class="confirm-dialog-overlay">
+              <div class="confirm-dialog">
+                <p>{{ message }}</p>
+                <button type="button" @click="confirm" class="dialogyes">Yes</button>
+                <button type="button" @click="cancel" class="dialogno">No</button>
+              </div>
+            </div>
+          </template>
+
+    </div>
+    <script src="javascripts/admin.js"></script>
+    <div class="footer">
+        <p class="footer-text">&copy; 2024 Hugh Mongus Hearts</p>
+    </div>
+
+</body>
+</html>

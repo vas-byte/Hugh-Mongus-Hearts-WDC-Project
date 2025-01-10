@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>About Us</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/master.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/home.css">
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    </head>
+<body>
+    <div class="menu" id="menu">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <a href="home.html">Home</a>
+        <a href="organisation-list.html">Organisations</a>
+        <a href="contact.html">Contact</a>
+        <a v-if="isAdmin" href="admin.html">Admin</a>
+        <a v-if="!isLoggedIn" href="login.html" class="login">Login</a>
+        <a v-if="isLoggedIn" href="account.html" class="login">Account</a>
+    </div>
+    <script src="javascripts/menu.js"></script>
+    <div class="ribbon"></div>
+    <div class="content">
+        <h1 class >Making a difference<br> one life at a time</h1>
+        <!-- Description - generated using ChatGPT -->
+
+        <p>Welcome to <strong>Hugh Mongus Hearts</strong>, the premier volunteering platform dedicated to uniting blood donation organisations under one mission: saving lives through the gift of blood. At Hugh Mongus Hearts, we understand the profound impact that a single blood donation can have, and we are committed to making it easier than ever for volunteers to contribute to this life-saving cause.</p>
+
+        <h2>Our Mission</h2>
+        <p><strong>Hugh Mongus Hearts</strong> was founded on the belief that together, we can make a greater difference. Our mission is to streamline the blood donation process by connecting a diverse network of blood banks, hospitals, and charitable organisations. By providing a centralized platform, we aim to maximise the efficiency of blood collection and distribution, ensuring that those in need receive timely and sufficient support.</p>
+
+        <h2>Get Involved</h2>
+        <p>Whether you are a seasoned donor or looking to make your first donation, <strong>Hugh Mongus Hearts</strong> welcomes you with open arms. Sign up today, find a donation center near you, and join us in our mission to make a monumental difference in the lives of those in need. Together, we can ensure that every heartbeat continues to thrive.</p>
+
+        <p><strong>Hugh Mongus Hearts</strong> - because every drop counts.</p>
+
+        <!-- End description -->
+        <button type="button" class="find-organisations" onclick="window.location.href='organisation-list.html'"
+        >Find your nearest organisation
+        </button>
+    </div>
+    <div class="image_container">
+        <!-- Source: https://shops.cheapsalesoutlet2024.ru/category?name=where%20does%20the%20red%20cross%20work -->
+        <img class="image" src="images/placeholder1.jpg" alt="https://via.placeholder.com/500x200">
+        <!-- Source: https://www.redcross.org.au/donate-funds/partner-with-us/ -->
+        <img class="image" src="images/placeholder2.jpg" alt="https://via.placeholder.com/500x200">
+    </div>
+    <div class="footer">
+        <p class="footer-text">&copy; 2024 Hugh Mongus Hearts</p>
+    </div>
+</body>
+</html>

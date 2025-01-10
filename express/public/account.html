@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>Account</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/master.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/account.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/dialog.css">
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    </head>
+<body>
+    <div class="menu" id="menu">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <a href="home.html">Home</a>
+        <a href="organisation-list.html">Organisations</a>
+        <a href="contact.html">Contact</a>
+        <a v-if="isAdmin" href="admin.html">Admin</a>
+        <a v-if="!isLoggedIn" href="login.html" class="login">Login</a>
+        <a v-if="isLoggedIn" href="account.html" class="login">Account</a>
+    </div>
+    <script src="javascripts/menu.js"></script>
+
+    <div class="ribbon"></div>
+
+    <div class="content" id="account">
+
+    <div id="saveBanner">
+        <p v-if="bannerSuccess" class="success">{{bannerSuccess}}</p>
+        <p v-if="bannerFail" class="error">{{bannerFail}}</p>
+    </div>
+
+
+        <h1 class="title">
+            ACCOUNT
+        </h1>
+
+        <button v-if="!req_by_admin" class="right" type="button" @click="logOut">Logout</button>
+
+        <div id="UserInfo">
+            <div class="odd">
+                <p class="type">First Name</p>
+                <input v-if="!is_oauth" v-model="first_name" type="text" class="input odd">
+                <p v-if="is_oauth" class="info"> {{first_name}} </p>
+            </div>
+            <div class="even">
+                <p class="type">Last Name</p>
+                <input v-if="!is_oauth" v-model="last_name" type="text" class="input even">
+                <p v-if="is_oauth" class="info"> {{last_name}} </p>
+            </div>
+            <div class="odd">
+                <p class="type">Email Address</p>
+                <input v-if="!is_oauth" v-model="email" type="text" class="input odd">
+                <p v-if="is_oauth" class="info"> {{email}} </p>
+            </div>
+            <div class="even">
+                <p v-if="!req_by_admin" class="type">Account Type</p>
+                <p v-if="req_by_admin" class="type">Is Admin?</p>
+                <p v-if="!req_by_admin" class="info">{{accountType}}</p>
+                <input v-if="req_by_admin" v-model="is_admin" type="checkbox" class="EmailNotifs">
+            </div>
+            <div v-if="!is_oauth" class="odd">
+                <p class="type">Password</p>
+                <button v-if="!is_oauth" class="resetlink" :style="sending ? { 'background-color': 'grey'} : ''" type="button" @click="sendResetLink">Send Reset Link</button>
+            </div>
+            <div v-if="organisations.length" v-bind:class = "!is_oauth ?'even':'odd'">
+
+                <table class="organisation-table">
+                    <tr>
+                        <th class="type">Organisation</th>
+                        <th>Event Notifications</th>
+                        <th>Post Notifications</th>
+                    </tr>
+                    <tr v-for="(organisation, index) in organisations">
+                        <td class="organisationName">{{ organisation.name }}</td>
+                        <td><input v-model="organisation.event_notifications" type="checkbox" class="EmailNotifs"></td>
+                        <td><input v-model="organisation.post_notifications" type="checkbox" class="EmailNotifs"></td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+        <div id="buttons">
+
+            <button v-if="!bannerSuccess" class="right" type="button" @click="deleteUser">Delete Account</button>
+
+            <button v-if="!bannerSuccess" class="right" type="button" @click="updateUser">Save</button>
+        </div>
+
+        <template>
+            <div v-if="visible" class="confirm-dialog-overlay">
+              <div class="confirm-dialog">
+                <p>{{ message }}</p>
+                <button type="button" @click="confirm" class="dialogyes">Yes</button>
+                <button type="button" @click="cancel" class="dialogno">No</button>
+              </div>
+            </div>
+          </template>
+
+    </div>
+    <script src="javascripts/account.js"></script>
+</body>
+</html>

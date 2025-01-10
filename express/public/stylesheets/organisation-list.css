@@ -1,0 +1,171 @@
+.find-organisations {
+    background-color: #FB4B4E;
+    height: 50px;
+    margin-top: 80px;
+    border-radius: 100px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 20px;
+    position: relative;
+}
+
+.search {
+    background-color: #ffffff;
+    height: 40px;
+    border-radius: 100px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5em;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+input {
+    border: none;
+    background-color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1em;
+    color: #3E000C;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: lighter;
+}
+
+.organisation {
+    background-color: lightgrey;
+    height: 120px;
+    margin-top: 20px;
+    border-radius: 10px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 20px;
+    position: relative;
+}
+
+button {
+    width: 100px;
+    border: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1em;
+    font-weight: bolder;
+    border-radius: 100px;
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.edit-button {
+    /* right: 140px; */
+    width: 40px;
+    height: 40px;
+}
+
+/* Move button to the left of other two */
+.delete-button {
+    /* right: 200px; */
+    right: 75px;
+    width: 40px;
+    height: 40px;
+}
+
+.join-button {
+    border: none;
+    background-color: #ffffff;
+    outline: 2px solid #3E000C;
+    color: #3E000C;
+}
+
+.joined-button {
+    outline: none;
+    border: none;
+    background-color: #3E000C;
+    color: white;
+}
+
+button:hover {
+    background-color: #FB4B4E;
+    color: white;
+    outline: none;
+}
+
+.admin-button {
+    width: 50px;
+    padding: 0px;
+    height: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 80px;
+    border-radius: 100px;
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#add-organisation {
+    background-color: #FB4B4E;
+}
+
+#remove-organisation {
+    background-color: #FB4B4E;
+}
+
+#add-organisation:hover {
+    background-color: #3E000C;
+}
+
+#remove-organisation:hover {
+    background-color: #FFA500;
+    color: black
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.organisation-name {
+    width: 500px;
+    border: none;
+    background-color: transparent;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.7em;
+    color: #3E000C;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.organisation-name::placeholder {
+    color: #3E000C;
+    font-style: italic;
+}
+
+.organisation:hover {
+    border: 2px solid black;
+    box-sizing: border-box;
+}

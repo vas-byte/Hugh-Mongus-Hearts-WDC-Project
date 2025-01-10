@@ -1,0 +1,151 @@
+-- MySQL dump 10.13  Distrib 8.0.32, for Linux (x86_64)
+--
+-- Host: localhost    Database: webPage
+-- ------------------------------------------------------
+-- Server version	8.0.32-0ubuntu0.22.04.2
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `webPage`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `webPage` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+USE `webPage`;
+
+
+DROP TABLE IF EXISTS `Users`;
+CREATE TABLE Users
+(
+  user_id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  first_name VARCHAR(63) NOT NULL,
+  last_name VARCHAR(63) NOT NULL,
+  email VARCHAR(320) NOT NULL UNIQUE,
+  user_password VARCHAR(320),
+  is_oauth INT NOT NULL,
+  is_admin INT NOT NULL,
+  PRIMARY KEY (user_id)
+);
+
+
+DROP TABLE IF EXISTS `ResetTokens`;
+CREATE TABLE ResetTokens
+(
+  id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  token VARCHAR(50) NOT NULL,
+  user_id INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS `AdminTokens`;
+CREATE TABLE AdminTokens
+(
+  id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  token VARCHAR(40) NOT NULL,
+  created_by INT,
+  PRIMARY KEY (id),
+  FOREIGN KEY (created_by) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS `Organisations`;
+CREATE TABLE Organisations
+(
+  id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  name VARCHAR(63) NOT NULL,
+  address_line VARCHAR(256) NOT NULL,
+  suburb VARCHAR(63) NOT NULL,
+  state VARCHAR(63) NOT NULL,
+  postcode VARCHAR(8) NOT NULL,
+  statement VARCHAR(1024) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS `OrganisationMembers`;
+CREATE TABLE OrganisationMembers
+(
+  id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  is_manager INT NOT NULL,
+  organisation_id INT NOT NULL,
+  user_id INT,
+  event_notifications INT NOT NULL DEFAULT 1,
+  post_notifications INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (id),
+  FOREIGN KEY (organisation_id) REFERENCES Organisations(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+  CONSTRAINT unique_user_organisation UNIQUE (user_id, organisation_id)
+);
+
+DROP TABLE IF EXISTS `Events`;
+CREATE TABLE Events
+(
+  id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  title VARCHAR(63) NOT NULL,
+  subtitle VARCHAR(63) NOT NULL,
+  content VARCHAR(2048) NOT NULL,
+  address_line VARCHAR(256) NOT NULL,
+  suburb VARCHAR(63) NOT NULL,
+  state VARCHAR(63) NOT NULL,
+  postcode VARCHAR(8) NOT NULL,
+  datetime DATETIME NOT NULL,
+  public INT NOT NULL,
+  organisation_id INT NOT NULL,
+  -- created_on DATE,
+  -- last_updated_on DATE,
+  -- created_by INT,
+  -- last_updated_by INT,
+  PRIMARY KEY (id),
+  FOREIGN KEY (organisation_id) REFERENCES Organisations(id) ON DELETE CASCADE
+  -- FOREIGN KEY (created_by) REFERENCES Users(user_id) ON DELETE SET NULL,
+  -- FOREIGN KEY (last_updated_by) REFERENCES Users(user_id) ON DELETE SET NULL
+);
+
+DROP TABLE IF EXISTS `Attendees`;
+CREATE TABLE Attendees
+(
+  id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  event_id INT NOT NULL,
+  user_id INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (event_id) REFERENCES Events(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS `Posts`;
+CREATE TABLE Posts
+(
+  id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  title VARCHAR(63) NOT NULL,
+  content VARCHAR(2048) NOT NULL,
+  created_on DATE NOT NULL,
+  is_private INT NOT NULL,
+  organisation_id INT NOT NULL,
+  created_by INT,
+  PRIMARY KEY (id),
+  FOREIGN KEY (organisation_id) REFERENCES Organisations(id) ON DELETE CASCADE,
+  FOREIGN KEY (created_by) REFERENCES Users(user_id) ON DELETE SET NULL
+);
+
+
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-05-27  3:15:04

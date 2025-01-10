@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <title>Find an organisation</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/master.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/organisation-list.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+
+
+</head>
+<body>
+    <div class="menu" id="menu">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <a href="home.html">Home</a>
+        <a href="organisation-list.html">Organisations</a>
+        <a href="contact.html">Contact</a>
+        <a v-if="isAdmin" href="admin.html">Admin</a>
+        <a v-if="!isLoggedIn" href="login.html" class="login">Login</a>
+        <a v-if="isLoggedIn" href="account.html" class="login">Account</a>
+    </div>
+    <script src="javascripts/menu.js"></script>
+    <div class="ribbon"></div>
+    <div class="content" id="app">
+        <h2>Welcome to Hugh Mongus Hearts</h2>
+        <h1>Find your nearest organisation!</h1>
+        <!-- Generated using ChatGPT -->
+        <p> Donating blood is a simple yet powerful act that can save lives. Every two seconds, someone in the world
+            needs a blood transfusion, whether due to accidents, surgeries, cancer treatments, or chronic illnesses.
+            Blood cannot be manufactured; it can only come from generous donors. By donating blood, you provide a
+            critical resource that helps hospitals and medical professionals treat patients, stabilize emergency
+            situations, and improve the quality of life for countless individuals. Your single donation can make a
+            monumental difference, offering hope and a second chance to those in dire need. Join the lifesaving
+            mission - donate blood today and be a hero to someone tomorrow.
+        </p>
+        <div class="find-organisations">
+            <h3>Find your nearest organisation</h3>
+            <div class="search">
+                <input v-model="search" type="text" placeholder="Search">
+            </div>
+        </div>
+        <!-- Admin buttons. These are NOT visible to regular users -->
+        <div class="button-container" v-if="user_admin">
+            <button type="button" class="admin-button" id="add-organisation" onclick="window.location.href='new-organisation.html'">+</button>
+        </div>
+        <div class="organisation-list" id="list-all-organisations">
+            <!-- Organisation divs. Five are shown by default. Can be changed by using admin buttons -->
+            <!-- This div will need to be displayed based on a GET request for organisations as per prac 8 -->
+            <div class="organisation" @click="redirect(organisation.id)" v-for="(organisation, index) in filterOrganisations">
+                <h3 class="organisation-name">{{ organisation.name }}</h3>
+                <div v-if="user_admin">
+                    <button type="button" class="delete-button" @click.stop="deleteOrganisation(organisation.id, index)"><i class="fas fa-trash"></i></button>
+                    <button type="button" class="edit-button" @click.stop="editOrganisation(organisation.id)"><i class="fas fa-edit"></i></button>
+                </div>
+                 <!-- Join button removed, for performance reasons it will be added to organisation page -->
+                <!-- <button type="button" class="joined-button">JOINED</button> -->
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p class="footer-text">&copy; 2024 Hugh Mongus Hearts</p>
+    </div>
+
+    <script src="javascripts/organisation-list.js"></script>
+</body>
+</html>

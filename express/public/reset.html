@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <title>Homepage</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/master.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="stylesheets/login.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script defer src="javascripts/reset.js"></script>
+</head>
+<body>
+    <div class="menu">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <a href="home.html">Home</a>
+        <a href="organisation-list.html">Organisations</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html" class="login">Login</a>
+    </div>
+
+    <div class="ribbon"></div>
+    <div class="login-form" id="resetpassword">
+        <h1 class="login-title">Reset Password</h1>
+        <form @submit.prevent="submitForm" v-if="tokenValid">
+
+            <div>
+                <input v-model="password"  class="username" type="password" placeholder="Your New Password" required>
+            </div>
+            <div>
+                <input @input="confirmPassword" :style="[!passwordsMatch ? {'outline-color': 'red', 'border-color': 'red'} : {}]" v-model="passwordConf"  class="password" type="password" placeholder="Confirm Your New Password" required>
+            </div>
+
+            <p v-if="error" v-cloak class="loginerror">{{ error }}</p>
+
+            <div>
+                <button class="login-button" type="submit">Reset</button>
+            </div>
+
+
+        </form>
+        <div v-if="!tokenValid">
+            <p class="loginerror">Invalid Reset Password URL</p>
+            <button type="button" class="login-button" @click="invalidButton">Go Back to Login</button>
+        </div>
+    </div>
+</body>
+
+
+</html>

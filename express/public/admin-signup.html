@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <title>Homepage</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/master.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/admin-signup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="stylesheets/login.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script defer src="javascripts/admin-signup.js"></script>
+</head>
+<body>
+    <div class="menu" id="menu">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <a href="home.html">Home</a>
+        <a href="organisation-list.html">Organisations</a>
+        <a href="contact.html">Contact</a>
+        <a v-if="isAdmin" href="admin.html">Admin</a>
+        <a v-if="!isLoggedIn" href="login.html" class="login">Login</a>
+        <a v-if="isLoggedIn" href="account.html" class="login">Account</a>
+    </div>
+    <script src="javascripts/menu.js"></script>
+    <div class="ribbon"></div>
+    <div class="login-form" id="admin-signup">
+
+        <div v-if="!accessDenied">
+            <h1 class="login-title">NEW USER</h1>
+
+
+            <div>
+                <input v-model="useremail"  class="username" type="email" placeholder="Your Email" required>
+            </div>
+            <div>
+                <p>Signup User as Administrator?</p>
+                <input v-model="is_admin" type="checkbox" class="EmailNotifs">
+            </div>
+
+            <p v-if="error" v-cloak class="loginerror">{{ error }}</p>
+
+            <div>
+                <button type="button" class="login-button" :style="buttonPressed ? { 'background-color': 'grey'} : ''" @click="signUp">Create</button>
+            </div>
+        </div>
+
+            <div v-if="accessDenied">
+                <div class="padlock">🔒</div>
+                <div class="message">Access Denied</div>
+                <div class="sub-message">You must be a site administrator to view this page.</div>
+            </div>
+    </div>
+</body>
+
+
+
+</html>

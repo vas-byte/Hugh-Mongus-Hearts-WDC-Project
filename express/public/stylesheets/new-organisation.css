@@ -1,0 +1,68 @@
+.content {
+    margin-top: 100px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 800px;
+    padding: 30px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    font-size: 1.2em;
+    margin-bottom: 50px;
+}
+
+.organisation-detail {
+    display: flex;
+    /* justify-content: space-between; */
+    margin-bottom: 30px;
+    text-align: left;
+    font-size: 1.4em;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.organisation-detail label {
+    flex: 1;
+    text-align: left;
+    font-family: 'Outfit', sans-serif;
+}
+
+.organisation-detail input {
+    flex: 2;
+    font-size: 0.8em;
+    font-weight: light;
+    font-family: 'Outfit', sans-serif;
+}
+
+.organisation-detail textarea {
+    flex: 2;
+    font-size: 0.8em;
+    font-weight: light;
+    font-size: 0.8em;
+    font-family: 'Outfit', sans-serif;
+    font-weight: light;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+}
+
+button {
+    font-size: 0.8em;
+}
+
+input[type=range] {
+    width: 20px;
+}
+
+.left-align {
+    float: left;
+    width: 10px;
+}

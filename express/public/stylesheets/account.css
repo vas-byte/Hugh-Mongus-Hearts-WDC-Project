@@ -1,0 +1,204 @@
+.title {
+    margin-block-start: 10px;
+    margin-block-end: 10px;
+    font-size: 4em;
+    font-weight: bold;
+}
+#UserInfo {
+    margin-top: 10px;
+    border-radius: 10px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
+    margin-block-end: 20px;
+}
+
+#UserInfo div {
+    padding-top: 10px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    height: min-content;
+    justify-content: space-between;
+}
+
+#UserInfo .odd {
+    background-color: lightgrey;
+}
+
+#UserInfo .even {
+    background-color: #ebebeb;
+}
+
+#UserInfo .type {
+    text-align: left;
+    padding-left: 20px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+#UserInfo .info {
+    text-align: right;
+    padding-right: 20px;
+}
+
+input[type="text"] {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2em;
+    font-weight: lighter;
+    margin-right: 10px;
+    padding-right: 10px;
+    margin-top: 5px;
+    height: 34px;
+    width: 35%;
+    outline-color: #3E000C;
+    text-align: right;
+    border-radius: 25px;
+    border-color: black;
+    border-style: solid;
+}
+
+.input.odd{
+    background-color: #ebebeb !important;
+}
+
+.input.even {
+    background-color: lightgrey !important;
+}
+
+/* Increase the size of the checkbox */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+/* Style the checkbox */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 3px; /* Optional: add rounded corners */
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="checkbox"]:checked {
+    background-color: white;
+    border-color: black;
+}
+
+input[type="checkbox"]:checked::after {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    position: absolute;
+    top: 1px;
+    left: 5px;
+    transform: rotate(45deg);
+
+}
+
+#UserInfo .EmailNotifs {
+    margin-top: 15px;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: row;
+    height: min-content;
+    justify-content: space-between;
+    margin-block-end: 20px;
+}
+
+#buttons .left {
+    float: left;
+}
+
+#buttons .right {
+    float: right;
+}
+
+.right:hover{
+    background-color: #3E000C;
+
+}
+
+button {
+    width: max-content;
+    border: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1em;
+    font-weight: bolder;
+    border-radius: 100px;
+    padding: 10px 20px;
+    right: 20px;
+    top: 50%;
+}
+
+
+.resetlink{
+    margin-right: 15px;
+    margin-top: 5px;
+    height: 35px;
+    width: 155px;
+    vertical-align: middle;
+    padding: 5px;
+}
+
+.resetlink:hover{
+    background-color: #3E000C;
+}
+
+.success{
+    color: green;
+}
+
+.error{
+    color: red;
+}
+
+.inactive{
+color: grey;
+}
+
+ul {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+.organisationName{
+    text-align: left;
+    padding-left: 20px;
+}
+
+li {
+    margin-top: 10px;
+}
+
+li:first-child {
+    margin-top:0;
+}
+
+th, td{
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2em;
+    color: #000000;
+    margin-top: 10px;
+    font-weight: lighter;
+    text-align: right;
+    padding-right: 20px;
+}
+
+table{
+    width: 100%;
+
+}

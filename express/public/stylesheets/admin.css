@@ -1,0 +1,233 @@
+.find-users {
+    background-color: #FB4B4E;
+    height: 50px;
+    margin-top: 10px;
+    border-radius: 100px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 20px;
+    position: relative;
+}
+
+.search {
+    font-size: 1.4em;
+    background-color: #ffffff;
+    height: 40px;
+    border-radius: 100px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 2px;
+}
+
+.search input{
+    width: 200px;
+
+}
+
+h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: min(4vw, 30px);
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+input {
+    border: none;
+    background-color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1em;
+    color: #3E000C;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: lighter;
+}
+
+.user {
+    background-color: lightgrey;
+    height: 80px;
+    margin-top: 20px;
+    border-radius: 10px;
+    text-align: left;
+    align-items: center;
+    padding-left: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.user .admin-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 20px;
+
+}
+
+.user .admin-controls .admin-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1em;
+    color: #3b3b3b;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+
+.user .admin-controls button {
+    width: 100px;
+    height: min-content;
+    border: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1em;
+    font-weight: bolder;
+    border-radius: 100px;
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 20px;
+    top: 50%;
+
+    margin-left: 20px;
+}
+
+.user .admin-controls .remove-button {
+    border: none;
+    background-color: #FB4B4E;
+    color: white;
+}
+
+.user .admin-controls button:hover.remove-button {
+    background-color: #3E000C;
+    color: white;
+    outline: none;
+}
+
+.edit-button {
+    border: none;
+    background-color: #FB4B4E;
+    color: white;
+    transition: all 0.2s ease-in;
+}
+
+.edit-button:hover {
+    background-color: #3E000C;
+    color: white;
+    outline: none;
+}
+
+.admin-button {
+    width: 50px;
+    padding: 0px;
+    height: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 80px;
+    border-radius: 100px;
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#add-user {
+    background-color: #FB4B4E;
+}
+
+#remove-user {
+    background-color: #FB4B4E;
+}
+
+#add-user:hover {
+    background-color: #FFA500;
+    color: black
+}
+
+#remove-user:hover {
+    background-color: #FFA500;
+    color: black
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.user-name {
+    width: 500px;
+    border: none;
+    background-color: transparent;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5em;
+    color: #3E000C;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: lighter;
+}
+
+.user-name::placeholder {
+    color: #3E000C;
+    font-style: italic;
+}
+
+.user:hover {
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.padlock {
+    font-size: 100px;
+    color: #e74c3c;
+}
+.message {
+    font-size: 24px;
+    color: #333333;
+    margin-top: 20px;
+}
+.sub-message {
+    font-size: 18px;
+    color: #666666;
+    margin-top: 10px;
+}
+
+#userList{
+    padding-inline-start: 0px;
+    width: 100%;
+}
+
+.name {
+    margin-bottom: 10px;
+}
+
+h1{
+    height: 70px;
+}
+
+.success{
+    color: green;
+}
+
+.error{
+    color: red;
+}
+
